@@ -5,6 +5,8 @@
  */
 package br.com.vip.vipmanager.servlet;
 
+import br.com.vip.vipmanager.event.QueueStatusCenterControl;
+import br.com.vip.vipmanager.event.QueueStatusControl;
 import br.com.vip.vipmanager.event.QueueSummaryCenterControl;
 import br.com.vip.vipmanager.event.QueueSummaryControl;
 import java.io.IOException;
@@ -31,6 +33,8 @@ public class DeleteQueue extends HttpServlet {
         Map<String,QueueSummaryControl> qscc=new QueueSummaryCenterControl().getQueueSummary();
         String name=request.getParameter("company")+"&"+request.getParameter("queue");
         out.print(qscc.remove(name)+"<br />");
+        Map<String,QueueStatusControl> qstcc=new QueueStatusCenterControl().getQstcc();
+        out.print(qstcc.remove(name)+"<br />");
         
         out.print("APAGANDO FILA "+name);
     }
