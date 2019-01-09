@@ -11,6 +11,7 @@ import org.asteriskjava.manager.event.AgentCalledEvent;
 import org.asteriskjava.manager.event.AgentConnectEvent;
 import org.asteriskjava.manager.event.LeaveEvent;
 import org.asteriskjava.manager.event.QueueCallerAbandonEvent;
+import org.asteriskjava.manager.event.QueueCallerLeaveEvent;
 import org.asteriskjava.manager.event.QueueEntryEvent;
 import org.asteriskjava.manager.event.QueueMemberEvent;
 import org.asteriskjava.manager.event.QueueMemberPausedEvent;
@@ -120,6 +121,19 @@ class HandleAgent {
         QueueEntryEvent qee = null;
         for (QueueEntryEvent qe : qsc.getCallers()) {
             if(qe.getUniqueId().equals(qcae.getUniqueId())){
+                qee=qe;
+                break;
+            }
+        }
+        qsc.getCallers().remove(qee);
+    }
+        void handle(QueueCallerLeaveEvent qcl) { // CRIADO ESSE PRA TALVEZ FORCAR SAIDA DA LIGACAO DA FILA EM CASO DE LEAVEWHENEMPTY
+        if(qcl.getQueue().contains("callgrp"))
+            return;
+        QueueStatusControl qsc=qstcc.get(qcl.getQueue());
+        QueueEntryEvent qee = null;
+        for (QueueEntryEvent qe : qsc.getCallers()) {
+            if(qe.getUniqueId().equals(qcl.getUniqueId())){
                 qee=qe;
                 break;
             }
