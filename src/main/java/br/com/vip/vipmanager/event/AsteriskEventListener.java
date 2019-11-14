@@ -82,7 +82,7 @@ public class AsteriskEventListener implements ManagerEventListener{
     public  ManagerConnection getMc() {
         if(mc==null){
             ManagerConnectionFactory factory=new ManagerConnectionFactory(
-                    "10.0.0.2","vip-events","vipEventsPass"
+                    "10.0.1.10","vip-events","vipEventsPass"
             );       
             mc=factory.createManagerConnection();
         }

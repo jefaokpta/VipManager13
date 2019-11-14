@@ -47,10 +47,11 @@ class HandleEvent {
         if(nce.getContext().equals("Vip-Peers")){           
             if(pscc.containsKey(nce.getChannel().split("-")[0])){
                 PeerStatusControl psc=pscc.get(nce.getChannel().split("-")[0]);
-                psc.setChannel(nce.getChannel());
-                psc.setStateDesc(nce.getChannelStateDesc());
-                psc.setState(nce.getChannelState());
+                
                 if(!nce.getExten().equals("s")){
+                    psc.setChannel(nce.getChannel());
+                    psc.setStateDesc(nce.getChannelStateDesc());
+                    psc.setState(nce.getChannelState());
                     psc.setExten(nce.getExten());
                     psc.setDirection(0);
                     return;
@@ -111,8 +112,10 @@ class HandleEvent {
     void handle(HangupEvent he) {
         if(pscc.containsKey(he.getChannel().split("-")[0])){
             PeerStatusControl psc=pscc.get(he.getChannel().split("-")[0]);
-            psc.setState(0);
-            psc.setStateDesc("Down");           
+            if(psc.getState()==he.getChannelState()){
+                psc.setState(0);
+                psc.setStateDesc("Down");
+            }                      
             if(he.getChannel().split("/")[0].equals("Khomp"))
                 psc.setPeer("");
         }
