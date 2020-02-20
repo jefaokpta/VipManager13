@@ -24,6 +24,7 @@ public class PeerStatusControl {
     private String uniqueid;
     private Date lastCall;
     private int direction;
+    private String channelAux;
 
     public PeerStatusControl() {
     }
@@ -42,6 +43,14 @@ public class PeerStatusControl {
         this.stateDesc=stateDesc;
         this.uniqueid=uniqueid;
         this.lastCall=lastCall;
+    }
+
+    public String getChannelAux() {
+        return channelAux;
+    }
+
+    public void setChannelAux(String channelAux) {
+        this.channelAux = channelAux;
     }
 
     public String getPeer() {

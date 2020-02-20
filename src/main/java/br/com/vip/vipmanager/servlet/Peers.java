@@ -39,6 +39,7 @@ public class Peers extends HttpServlet {
             peer=new JSONObject();
             peer.put("peer", psc.getPeer());
             peer.put("channel", (psc.getChannel()==null?"null":psc.getChannel()));
+            peer.put("channelAux", (psc.getChannelAux()==null?"null":psc.getChannelAux()));
             peer.put("registerStatus", psc.getRegisterStatus());
             peer.put("state", psc.getState());
             peer.put("stateDesc", psc.getStateDesc());

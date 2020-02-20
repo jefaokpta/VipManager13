@@ -57,6 +57,7 @@ class HandleEvent {
                     return;
                 }
                 psc.setDirection(1);
+                psc.setChannelAux(nce.getChannel());
                 psc.setUniqueid(nce.getUniqueId());
                 //psc.setLastCall(nce.getDateReceived());
                 return;
