@@ -24,6 +24,13 @@ public class PeerStatusCenterControl implements Serializable{
         }
         return peerStatusController;
     }
+    
+    public Map<String,PeerStatusControl> getProtectedPeerStatusController() {
+        if(peerStatusController==null){
+            peerStatusController=new HashMap<>();
+        }
+        return new HashMap<>(peerStatusController);
+    }
 
     public void setPeerStatusController(Map<String, PeerStatusControl> peerStatusController) {
         PeerStatusCenterControl.peerStatusController = peerStatusController;

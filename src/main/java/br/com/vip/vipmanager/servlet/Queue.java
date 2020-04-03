@@ -37,7 +37,7 @@ public class Queue extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         Map<String,QueueSummaryControl> qscc=new QueueSummaryCenterControl().getQueueSummary();
-        Map<String,QueueStatusControl> qstcc=new QueueStatusCenterControl().getQstcc();
+        Map<String,QueueStatusControl> qstcc=new QueueStatusCenterControl().getProtectedQstcc();
         
         JSONObject queue;
         JSONObject agent;

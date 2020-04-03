@@ -23,6 +23,12 @@ public class QueueStatusCenterControl implements Serializable{
             qstcc=new HashMap<>();
         return qstcc;
     }
+    
+    public Map<String, QueueStatusControl> getProtectedQstcc() {
+        if(qstcc==null)
+            qstcc=new HashMap<>();
+        return new HashMap<>(qstcc);
+    }
 
     public void setQstcc(Map<String, QueueStatusControl> qstcc) {
         QueueStatusCenterControl.qstcc = qstcc;

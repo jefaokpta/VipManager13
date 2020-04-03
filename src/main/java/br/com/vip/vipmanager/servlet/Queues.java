@@ -38,7 +38,7 @@ public class Queues extends HttpServlet {
         
         //PeerStatusCenterControl pscc=new PeerStatusCenterControl();
         Map<String,QueueSummaryControl> qscc=new QueueSummaryCenterControl().getQueueSummary();
-        Map<String,QueueStatusControl> qstcc=new QueueStatusCenterControl().getQstcc();
+        Map<String,QueueStatusControl> qstcc=new QueueStatusCenterControl().getProtectedQstcc();
 
 //        out.print(pscc.getPeerStatusController().size()+" PEER<br />");
 //        out.print(qscc.size()+" SUMARIO<br />");

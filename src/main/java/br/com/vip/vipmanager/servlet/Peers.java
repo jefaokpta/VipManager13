@@ -33,7 +33,7 @@ public class Peers extends HttpServlet {
         PeerStatusCenterControl pscc=new PeerStatusCenterControl();
         JSONArray peers=new JSONArray();
         JSONObject peer;
-        for (Map.Entry<String, PeerStatusControl> entry : pscc.getPeerStatusController().entrySet()) {
+        for (Map.Entry<String, PeerStatusControl> entry : pscc.getProtectedPeerStatusController().entrySet()) {
             PeerStatusControl psc=entry.getValue();
             
             peer=new JSONObject();
@@ -48,6 +48,7 @@ public class Peers extends HttpServlet {
             peer.put("uniqueid", (psc.getUniqueid()==null?"null":psc.getUniqueid()));
             peer.put("lastCall", (psc.getLastCall()==null?"null":psc.getLastCall()));
             peer.put("direction", psc.getDirection());
+            peer.put("dialStatus", (psc.getDialStatus()==null?"null":psc.getDialStatus()));
             
             peers.put(peer);
         }

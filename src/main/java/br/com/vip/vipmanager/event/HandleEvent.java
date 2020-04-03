@@ -122,29 +122,35 @@ class HandleEvent {
         }
     }
     void handle(DialEvent de) {
-        if(de.getSubEvent().equals("Begin")&&de.getDestination().split("/")[0].equals("Khomp")){
-            String peer=de.getDialString().split("/")[1];
-            if(peer.length()<5){
-//                if(peer.length()==3)
-//                    peer="1"+peer;
-                if(pscc.containsKey(de.getDestination().split("-")[0])){
-                    PeerStatusControl psc=pscc.get(de.getDestination().split("-")[0]);
-                    psc.setExten(de.getExten());
-                    psc.setDirection(0);
-                    psc.setChannel(de.getChannel());
-                    psc.setStateDesc(de.getChannelStateDesc());
-                    psc.setState(de.getChannelState());
-                    psc.setUniqueid(de.getUniqueId());
-                    psc.setPeer(peer);
-                    return;
-                }
-                pscc.put(de.getDestination().split("-")[0],
-                    new PeerStatusControl(peer, de.getChannelStateDesc(), 
-                            de.getChannelState(), 
-                            (de.getExten().equals("s")?"":de.getExten()),
-                            de.getUniqueId(), de.getChannel(),
-                            de.getDateReceived()));
-            }
-        }
+        
+        if(de.getDialStatus() == null)
+            pscc.get(de.getChannel().split("-")[0]).setDialStatus("Ring");
+        else 
+            pscc.get(de.getChannel().split("-")[0]).setDialStatus(de.getDialStatus());
+        
+//        if(de.getSubEvent().equals("Begin")&&de.getDestination().split("/")[0].equals("Khomp")){
+//            String peer=de.getDialString().split("/")[1];
+//            if(peer.length()<5){
+////                if(peer.length()==3)
+////                    peer="1"+peer;
+//                if(pscc.containsKey(de.getDestination().split("-")[0])){
+//                    PeerStatusControl psc=pscc.get(de.getDestination().split("-")[0]);
+//                    psc.setExten(de.getExten());
+//                    psc.setDirection(0);
+//                    psc.setChannel(de.getChannel());
+//                    psc.setStateDesc(de.getChannelStateDesc());
+//                    psc.setState(de.getChannelState());
+//                    psc.setUniqueid(de.getUniqueId());
+//                    psc.setPeer(peer);
+//                    return;
+//                }
+//                pscc.put(de.getDestination().split("-")[0],
+//                    new PeerStatusControl(peer, de.getChannelStateDesc(), 
+//                            de.getChannelState(), 
+//                            (de.getExten().equals("s")?"":de.getExten()),
+//                            de.getUniqueId(), de.getChannel(),
+//                            de.getDateReceived()));
+//            }
+//        }
     }
 }
