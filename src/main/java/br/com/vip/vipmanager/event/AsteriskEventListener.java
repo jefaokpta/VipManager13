@@ -152,8 +152,10 @@ public class AsteriskEventListener implements ManagerEventListener{
             new HandleAgent().handle((AgentCalledEvent) event);
             return;
         }
-        if(event instanceof CdrEvent)
+        if(event instanceof CdrEvent){
+            new HandleEvent().handle((CdrEvent) event);
             return;
+        }
         if(event instanceof VarSetEvent)
             return;
         if(event instanceof ExtensionStatusEvent)

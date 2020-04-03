@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.asteriskjava.manager.TimeoutException;
 import org.asteriskjava.manager.action.GetVarAction;
+import org.asteriskjava.manager.event.CdrEvent;
 import org.asteriskjava.manager.event.DialEvent;
 import org.asteriskjava.manager.event.HangupEvent;
 import org.asteriskjava.manager.event.NewChannelEvent;
@@ -152,5 +153,13 @@ class HandleEvent {
 //                            de.getDateReceived()));
 //            }
 //        }
+    }
+
+    void handle(CdrEvent cdr) {
+        if(pscc.containsKey(cdr.getChannel().split("-")[0])){
+            PeerStatusControl psc = pscc.get(cdr.getChannel().split("-")[0]);
+            psc.setLastDuration(cdr.getDuration());
+            psc.setLastBillsec(cdr.getBillableSeconds());
+        }
     }
 }

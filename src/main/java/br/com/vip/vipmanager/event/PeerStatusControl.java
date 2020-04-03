@@ -26,7 +26,11 @@ public class PeerStatusControl {
     private int direction;
     private String channelAux;
     private String dialStatus;
+    private int lastDuration;
+    private int lastBillsec;
 
+    
+    
     public PeerStatusControl() {
     }
 
@@ -46,6 +50,22 @@ public class PeerStatusControl {
         this.lastCall=lastCall;
     }
 
+    public int getLastDuration() {
+        return lastDuration;
+    }
+
+    public void setLastDuration(int lastDuration) {
+        this.lastDuration = lastDuration;
+    }
+
+    public int getLastBillsec() {
+        return lastBillsec;
+    }
+
+    public void setLastBillsec(int lastBillsec) {
+        this.lastBillsec = lastBillsec;
+    }
+    
     public String getDialStatus() {
         return dialStatus;
     }

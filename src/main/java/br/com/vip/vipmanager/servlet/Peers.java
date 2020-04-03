@@ -49,6 +49,8 @@ public class Peers extends HttpServlet {
             peer.put("lastCall", (psc.getLastCall()==null?"null":psc.getLastCall()));
             peer.put("direction", psc.getDirection());
             peer.put("dialStatus", (psc.getDialStatus()==null?"null":psc.getDialStatus()));
+            peer.put("lastDuration", psc.getLastDuration());
+            peer.put("lastBillsec", psc.getLastBillsec());
             
             peers.put(peer);
         }
