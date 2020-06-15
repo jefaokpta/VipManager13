@@ -82,8 +82,8 @@ public class AsteriskEventListener implements ManagerEventListener{
     public  ManagerConnection getMc() {
         if(mc==null){
             ManagerConnectionFactory factory=new ManagerConnectionFactory(
-                    //"sip.vipcc.vcomsolucoes.com.br","vip-events-test","vipEventsPass"
-                    "10.0.1.10","vip-events","vipEventsPass"
+                    "sip.vipcc.vcomsolucoes.com.br","vip-events-test","vipEventsPass"
+                    //"10.0.1.10","vip-events","vipEventsPass"
             );       
             mc=factory.createManagerConnection();
         }
