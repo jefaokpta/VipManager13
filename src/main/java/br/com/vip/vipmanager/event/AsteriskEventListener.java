@@ -82,8 +82,8 @@ public class AsteriskEventListener implements ManagerEventListener{
     public  ManagerConnection getMc() {
         if(mc==null){
             ManagerConnectionFactory factory=new ManagerConnectionFactory(
-                    "sip.vipcc.vcomsolucoes.com.br","vip-events-test","vipEventsPass"
-                    //"10.0.1.10","vip-events","vipEventsPass"
+                    //"sip.vipcc.vcomsolucoes.com.br","vip-events-test","vipEventsPass"
+                    "10.0.1.10","vip-events","vipEventsPass"
             );       
             mc=factory.createManagerConnection();
         }
@@ -175,14 +175,17 @@ public class AsteriskEventListener implements ManagerEventListener{
         
         if(event instanceof NewCallerIdEvent)
             return;
-        if(event instanceof BridgeEvent)
+        if(event instanceof BridgeEvent) {
+            new HandleEvent().handle((BridgeEvent) event);
             return;
+        }
         if(event instanceof UnlinkEvent)
             return;
         if(event instanceof NewAccountCodeEvent)
             return;
-        if(event instanceof ChannelUpdateEvent)
+        if(event instanceof ChannelUpdateEvent) {
             return;
+        }
         if(event instanceof JitterBufStatsEvent)
             return;
         if(event instanceof DialEvent){

@@ -12,12 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.asteriskjava.manager.TimeoutException;
 import org.asteriskjava.manager.action.GetVarAction;
-import org.asteriskjava.manager.event.CdrEvent;
-import org.asteriskjava.manager.event.DialEvent;
-import org.asteriskjava.manager.event.HangupEvent;
-import org.asteriskjava.manager.event.NewChannelEvent;
-import org.asteriskjava.manager.event.NewStateEvent;
-import org.asteriskjava.manager.event.PeerStatusEvent;
+import org.asteriskjava.manager.event.*;
 import org.asteriskjava.manager.response.GetVarResponse;
 import org.asteriskjava.manager.response.ManagerResponse;
 
@@ -99,18 +94,52 @@ class HandleEvent {
             psc.setStateDesc(nse.getChannelStateDesc());
             if(nse.getChannelState()==5){
                 psc.setDirection(1);
-                psc.setExten(nse.getConnectedLineNum());               
+                if(!nse.getConnectedLineNum().contains("s"))
+                    psc.setExten(nse.getConnectedLineNum());
                 return;
             }
             if(nse.getChannelState()==6){
                 psc.setLastCall(nse.getDateReceived());
                 psc.setUniqueid(nse.getUniqueId());
+                if(!nse.getConnectedLineNum().contains("s"))
+                    psc.setExten(nse.getConnectedLineNum());
                 return;
             }
             psc.setDirection(0);
             psc.setLastCall(nse.getDateReceived());
         }
     }
+
+    void handle(BridgeEvent be){
+        if(pscc.containsKey(be.getChannel1().split("-")[0])){
+            setExtenBasedOnChannel(be, pscc.get(be.getChannel1().split("-")[0]), 1);
+            return;
+        }
+        if(pscc.containsKey(be.getChannel2().split("-")[0])){
+            setExtenBasedOnChannel(be, pscc.get(be.getChannel2().split("-")[0]), 2);
+            return;
+        }
+    }
+    private void setExtenBasedOnChannel(BridgeEvent be, PeerStatusControl psc, int channelPosition) {
+        //System.out.println(":::::::::::::::::: DIRECTION " + psc.getDirection()+ "  POSITION  "+channelPosition);
+        if (psc.getDirection() == 1) {
+            switch (channelPosition){
+                case 1:
+                    //System.out.println(":::::::::::::::::: CALLERID " + be.getCallerId2());
+                    if(!be.getCallerId2().contains("s"))
+                        psc.setExten(be.getCallerId2());
+                    break;
+                case 2:
+                    //System.out.println(":::::::::::::::::: CALLERID " + be.getCallerId1());
+                    if(!be.getCallerId1().contains("s"))
+                        psc.setExten(be.getCallerId1());
+                break;
+            }
+
+        }
+        //System.out.println(be);
+    }
+
     void handle(HangupEvent he) {
         if(pscc.containsKey(he.getChannel().split("-")[0])){
             PeerStatusControl psc=pscc.get(he.getChannel().split("-")[0]);
